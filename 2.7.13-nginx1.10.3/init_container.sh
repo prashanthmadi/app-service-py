@@ -21,9 +21,10 @@ echo finished pip install
 # 2. Start Python Server
 if [ -e "$DEPLOYMENT_TARGET/serve.py" ]; then
   cd "$DEPLOYMENT_TARGET"
-  python serve.py
+  python serve.py &
   exitWithMessageOnError "Python initializing file not found"
 fi
 echo app started successfully.
 
-nginx -g daemon off
+nginx &
+
