@@ -26,5 +26,5 @@ if [ -e "$DEPLOYMENT_TARGET/serve.py" ]; then
 fi
 echo app started successfully.
 
-nginx
+nginx -g "daemon off;"
 
