@@ -18,13 +18,13 @@ if [ -e "$DEPLOYMENT_TARGET/requirements.txt" ]; then
 fi
 echo finished pip install
 
-# 2. Start Python and nginx Servers
+# 2. Start Python Server
 if [ -e "$DEPLOYMENT_TARGET/serve.py" ]; then
   cd "$DEPLOYMENT_TARGET"
-  python serve.py && nginx
+  python serve.py &
   exitWithMessageOnError "Python initializing file not found"
 fi
 echo app started successfully.
 
-
+nginx
 
