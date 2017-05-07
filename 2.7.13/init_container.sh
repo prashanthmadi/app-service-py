@@ -15,13 +15,24 @@ if [ -e "$DEPLOYMENT_TARGET/requirements.txt" ]; then
   cd "$DEPLOYMENT_TARGET"
   pip install -r requirements.txt
   exitWithMessageOnError "pip install failed"
+  echo finished pip install
 fi
-echo finished pip install
+
+# run django setup commands if enabled
+if [ "$DJANGO_MIGRATE" == "true" ]; then
+    python manage.py migrate --noinput
+fi
+if [ "$DJANGO_COLLECTSTATIC" == "true" ]; then
+    python manage.py collectstatic --noinput
+fi
+if [ "$DJANGO_COMPRESS" == "true" ]; then
+    python manage.py compress
+fi
 
 # 2. Start Python Server
 if [ -e "$DEPLOYMENT_TARGET/serve.py" ]; then
   cd "$DEPLOYMENT_TARGET"
   python serve.py
   exitWithMessageOnError "Python initializing file not found"
+  echo app started successfully.
 fi
-echo app started successfully.
